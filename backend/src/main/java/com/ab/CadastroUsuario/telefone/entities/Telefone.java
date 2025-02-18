@@ -22,14 +22,14 @@ public class Telefone implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String numeroTelefone;
+	private String nroTelefone;
 
 	@ManyToOne
-	@JoinColumn(name = "codigo_area", referencedColumnName = "codigoArea")
+	@JoinColumn(name = "codigo_area")
 	private Ddd codigoArea;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	public Telefone() {
@@ -38,7 +38,7 @@ public class Telefone implements Serializable {
 
 	public Telefone(Long id, String numeroTelefone, Ddd codigoArea, Usuario usuario) {
 		this.id = id;
-		this.numeroTelefone = numeroTelefone;
+		this.nroTelefone = numeroTelefone;
 		this.codigoArea = codigoArea;
 		this.usuario = usuario;
 	}
@@ -52,11 +52,11 @@ public class Telefone implements Serializable {
 	}
 
 	public String getNumeroTelefone() {
-		return numeroTelefone;
+		return nroTelefone;
 	}
 
 	public void setNumeroTelefone(String numeroTelefone) {
-		this.numeroTelefone = numeroTelefone;
+		this.nroTelefone = numeroTelefone;
 	}
 
 	public Ddd getCodigoArea() {

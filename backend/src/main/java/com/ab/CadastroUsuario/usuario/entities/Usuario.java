@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.ab.CadastroUsuario.endereco.entities.Endereco;
-import com.ab.CadastroUsuario.genero.entities.Genero;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,11 +25,14 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(nullable = false)
 	private String nome;
+
+	@Column(nullable = false)
 	private String sobrenome;
 
-	@ManyToOne
-	@JoinColumn(name = "genero", referencedColumnName = "id")
+	@Enumerated(EnumType.STRING) // Salva como texto no banco de dados
 	private Genero genero;
 
 	private String fotoPerfil;
@@ -35,7 +40,7 @@ public class Usuario implements Serializable {
 	private String complemento;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco", referencedColumnName = "id")
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
 	public Usuario() {

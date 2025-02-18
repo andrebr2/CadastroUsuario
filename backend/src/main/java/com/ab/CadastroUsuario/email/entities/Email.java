@@ -25,7 +25,7 @@ public class Email implements Serializable {
 	private String enderecoEmail;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	public Email() {

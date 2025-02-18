@@ -18,13 +18,15 @@ public class Endereco implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String cep;
 
 	public Endereco() {
 
 	}
 
-	public Endereco(Long id) {
+	public Endereco(Long id, String cep) {
 		this.id = id;
+		this.cep = cep;
 	}
 
 	public Long getId() {
@@ -33,6 +35,14 @@ public class Endereco implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	@Override
