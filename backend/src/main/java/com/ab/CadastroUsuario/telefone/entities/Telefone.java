@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.ab.CadastroUsuario.usuario.entities.Usuario;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,23 +23,25 @@ public class Telefone implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
 	private String nroTelefone;
 
 	@ManyToOne
-	@JoinColumn(name = "codigo_area")
+	@JoinColumn(name = "codigo_area", nullable = false)
 	private Ddd codigoArea;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
 	public Telefone() {
 
 	}
 
-	public Telefone(Long id, String numeroTelefone, Ddd codigoArea, Usuario usuario) {
+	public Telefone(Long id, String nroTelefone, Ddd codigoArea, Usuario usuario) {
 		this.id = id;
-		this.nroTelefone = numeroTelefone;
+		this.nroTelefone = nroTelefone;
 		this.codigoArea = codigoArea;
 		this.usuario = usuario;
 	}
@@ -51,12 +54,12 @@ public class Telefone implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumeroTelefone() {
+	public String getNroTelefone() {
 		return nroTelefone;
 	}
 
-	public void setNumeroTelefone(String numeroTelefone) {
-		this.nroTelefone = numeroTelefone;
+	public void setNroTelefone(String nroTelefone) {
+		this.nroTelefone = nroTelefone;
 	}
 
 	public Ddd getCodigoArea() {
