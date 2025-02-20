@@ -1,6 +1,6 @@
 package com.ab.CadastroUsuario.email.dto;
 
-import com.ab.CadastroUsuario.email.entities.Email;
+import com.ab.CadastroUsuario.email.entities.EmailUsuario;
 import com.ab.CadastroUsuario.usuario.dto.UsuarioDTO;
 
 public class EmailDTO {
@@ -19,7 +19,7 @@ public class EmailDTO {
 		this.usuario = usuario;
 	}
 
-	public EmailDTO(Email entity) {
+	public EmailDTO(EmailUsuario entity) {
 		id = entity.getId();
 		enderecoEmail = entity.getEnderecoEmail();
 		usuario = new UsuarioDTO(entity.getUsuario());

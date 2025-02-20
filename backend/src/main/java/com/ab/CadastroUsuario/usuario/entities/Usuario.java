@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -26,17 +28,25 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@NotBlank(message = "O nome é obrigatório")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
+    @Column(nullable = false, length = 100)
 	private String nome;
 
-	@Column(nullable = false)
+	@NotBlank(message = "O sobrenome é obrigatório")
+    @Size(min = 2, max = 100, message = "O sobrenome deve ter entre 2 e 100 caracteres")
+    @Column(nullable = false, length = 100)
 	private String sobrenome;
 
 	@Enumerated(EnumType.STRING) // Salva como texto no banco de dados
 	private Genero genero;
 
 	private String fotoPerfil;
+	
+	@Size(max = 20, message = "O número do endereço deve ter no máximo 20 caracteres")
 	private String nroEndereco;
+	
+	@Size(max = 100, message = "O complemento deve ter no máximo 100 caracteres")
 	private String complemento;
 
 	@ManyToOne

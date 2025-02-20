@@ -13,10 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 @Table(name = "tb_email")
-public class Email implements Serializable {
+public class EmailUsuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +27,8 @@ public class Email implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "O endereço de e-mail é obrigatório") // Garante que não seja nulo ou vazio
+    @Email(message = "O endereço de e-mail deve ser válido") // Valida o formato do e-mail
 	@Column(nullable = false)
 	private String enderecoEmail;
 
@@ -31,11 +36,11 @@ public class Email implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	public Email() {
+	public EmailUsuario() {
 
 	}
 
-	public Email(Long id, String enderecoEmail, Usuario usuario) {
+	public EmailUsuario(Long id, String enderecoEmail, Usuario usuario) {
 		this.id = id;
 		this.enderecoEmail = enderecoEmail;
 		this.usuario = usuario;
@@ -78,7 +83,7 @@ public class Email implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Email other = (Email) obj;
+		EmailUsuario other = (EmailUsuario) obj;
 		return Objects.equals(id, other.id);
 	}
 

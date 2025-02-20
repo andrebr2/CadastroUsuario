@@ -7,24 +7,24 @@ public class TelefoneDTO {
 
 	private Long id;
 	private String nroTelefone;
-	private DddDTO codigoArea;
+	private DddDTO ddd;
 	private UsuarioDTO usuario;
 
 	public TelefoneDTO() {
 
 	}
 
-	public TelefoneDTO(Long id, String nroTelefone, DddDTO codigoArea, UsuarioDTO usuario) {
+	public TelefoneDTO(Long id, String nroTelefone, DddDTO ddd, UsuarioDTO usuario) {
 		this.id = id;
 		this.nroTelefone = nroTelefone;
-		this.codigoArea = codigoArea;
+		this.ddd = ddd;
 		this.usuario = usuario;
 	}
 
 	public TelefoneDTO(Telefone entity) {
 		id = entity.getId();
 		nroTelefone = entity.getNroTelefone();
-		codigoArea = new DddDTO(entity.getCodigoArea());
+		ddd = new DddDTO(entity.getCodigoArea());
 		usuario = new UsuarioDTO(entity.getUsuario());
 	}
 
@@ -44,12 +44,12 @@ public class TelefoneDTO {
 		this.nroTelefone = nroTelefone;
 	}
 
-	public DddDTO getCodigoArea() {
-		return codigoArea;
+	public DddDTO getDdd() {
+		return ddd;
 	}
 
-	public void setCodigoArea(DddDTO codigoArea) {
-		this.codigoArea = codigoArea;
+	public void setDdd(DddDTO ddd) {
+		this.ddd = ddd;
 	}
 
 	public UsuarioDTO getUsuario() {
