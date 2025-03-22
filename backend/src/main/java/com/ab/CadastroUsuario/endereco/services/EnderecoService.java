@@ -2,7 +2,6 @@ package com.ab.CadastroUsuario.endereco.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,6 @@ import com.ab.CadastroUsuario.endereco.entities.Endereco;
 import com.ab.CadastroUsuario.endereco.repositories.EnderecoRepository;
 import com.ab.CadastroUsuario.exceptions.DataBaseException;
 import com.ab.CadastroUsuario.exceptions.ResourceNotFoundException;
-import com.ab.CadastroUsuario.telefone.dto.TelefoneDTO;
-import com.ab.CadastroUsuario.telefone.entities.Telefone;
 
 import jakarta.persistence.EntityNotFoundException;
 

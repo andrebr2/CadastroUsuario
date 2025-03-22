@@ -25,7 +25,6 @@ public class SecurityConfig {
 		return new CorsFilter(source);
 	}
 
-	@SuppressWarnings("removal")
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -35,8 +34,8 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
 
-		// add this line to use H2 web console
-		http.headers().frameOptions().disable();
+		http.securityMatchers(matchers -> matchers.requestMatchers("/h2-console/**"))
+				.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
 		return http.build();
 	}

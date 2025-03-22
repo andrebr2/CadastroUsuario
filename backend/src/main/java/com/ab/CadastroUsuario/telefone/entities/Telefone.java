@@ -14,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "tb_telefone")
@@ -26,8 +25,7 @@ public class Telefone implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O número de telefone é obrigatório") // Garante que não seja nulo ou vazio
-	@Pattern(regexp = "^\\d{4,5}-\\d{4}$", message = "O número de telefone deve estar no formato XXXXX-XXXX ou XXXX-XXXX")
+	@NotBlank(message = "O número de telefone é obrigatório")
     @Column(nullable = false)
 	private String nroTelefone;
 

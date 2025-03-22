@@ -1,9 +1,13 @@
 package com.ab.CadastroUsuario.usuario.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.ab.CadastroUsuario.endereco.entities.Endereco;
+import com.ab.CadastroUsuario.esporte.entities.Esporte;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +17,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -29,29 +35,44 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@NotBlank(message = "O nome é obrigatório")
-    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
-    @Column(nullable = false, length = 100)
+	@Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
+	@Column(nullable = false, length = 100)
 	private String nome;
 
 	@NotBlank(message = "O sobrenome é obrigatório")
-    @Size(min = 2, max = 100, message = "O sobrenome deve ter entre 2 e 100 caracteres")
-    @Column(nullable = false, length = 100)
+	@Size(min = 2, max = 100, message = "O sobrenome deve ter entre 2 e 100 caracteres")
+	@Column(nullable = false, length = 100)
 	private String sobrenome;
 
-	@Enumerated(EnumType.STRING) // Salva como texto no banco de dados
+	@Enumerated(EnumType.STRING)
 	private Genero genero;
 
 	private String fotoPerfil;
-	
+
 	@Size(max = 20, message = "O número do endereço deve ter no máximo 20 caracteres")
 	private String nroEndereco;
-	
+
 	@Size(max = 100, message = "O complemento deve ter no máximo 100 caracteres")
 	private String complemento;
 
 	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
+
+	@ManyToMany
+	@JoinTable(name = "tb_usuario_esporte", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "esporte_id"))
+	@JsonIgnore
+	private Set<Esporte> esportesPreferidos = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "tb_usuario_seguidores", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "seguidor_id"))
+	@JsonIgnore
+	private Set<Usuario> seguidores = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "tb_usuario_seguindo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "seguindo_id"))
+	@JsonIgnore
+	private Set<Usuario> seguindo = new HashSet<>();
 
 	public Usuario() {
 
@@ -131,6 +152,30 @@ public class Usuario implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Set<Esporte> getEsportesPreferidos() {
+		return esportesPreferidos;
+	}
+
+	public void setEsportesPreferidos(Set<Esporte> esportesPreferidos) {
+		this.esportesPreferidos = esportesPreferidos;
+	}
+
+	public Set<Usuario> getSeguidores() {
+		return seguidores;
+	}
+
+	public void setSeguidores(Set<Usuario> seguidores) {
+		this.seguidores = seguidores;
+	}
+
+	public Set<Usuario> getSeguindo() {
+		return seguindo;
+	}
+
+	public void setSeguindo(Set<Usuario> seguindo) {
+		this.seguindo = seguindo;
 	}
 
 	@Override

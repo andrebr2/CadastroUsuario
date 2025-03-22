@@ -27,8 +27,8 @@ public class EmailUsuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O endereço de e-mail é obrigatório") // Garante que não seja nulo ou vazio
-    @Email(message = "O endereço de e-mail deve ser válido") // Valida o formato do e-mail
+	@NotBlank(message = "O endereço de e-mail é obrigatório")
+    @Email(message = "O endereço de e-mail deve ser válido")
 	@Column(nullable = false)
 	private String enderecoEmail;
 

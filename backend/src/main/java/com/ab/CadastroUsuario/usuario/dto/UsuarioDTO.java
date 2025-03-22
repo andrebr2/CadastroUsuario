@@ -30,7 +30,7 @@ public class UsuarioDTO {
 		this.complemento = complemento;
 		this.endereco = endereco;
 	}
-
+	
 	public UsuarioDTO(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
@@ -39,7 +39,7 @@ public class UsuarioDTO {
 		fotoPerfil = entity.getFotoPerfil();
 		nroEndereco = entity.getNroEndereco();
 		complemento = entity.getComplemento();
-		endereco = (entity.getEndereco() != null) ? new EnderecoDTO(entity.getEndereco()) : null;
+		endereco = new EnderecoDTO(entity.getEndereco());
 	}
 
 	public Long getId() {

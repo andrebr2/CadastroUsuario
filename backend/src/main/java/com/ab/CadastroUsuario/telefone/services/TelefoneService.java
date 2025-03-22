@@ -2,7 +2,6 @@ package com.ab.CadastroUsuario.telefone.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import com.ab.CadastroUsuario.telefone.dto.TelefoneDTO;
 import com.ab.CadastroUsuario.telefone.entities.Ddd;
 import com.ab.CadastroUsuario.telefone.entities.Telefone;
 import com.ab.CadastroUsuario.telefone.repositories.TelefoneRepository;
-import com.ab.CadastroUsuario.usuario.dto.UsuarioDTO;
+import com.ab.CadastroUsuario.telefone.validations.TelefoneValidation;
 import com.ab.CadastroUsuario.usuario.entities.Usuario;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +23,9 @@ public class TelefoneService {
 
 	@Autowired
 	private TelefoneRepository repository;
+	
+	@Autowired
+	TelefoneValidation telefoneValidation;
 
 	@Transactional(readOnly = true)
 	public Page<TelefoneDTO> findAll(Pageable pageable) {
@@ -39,24 +41,13 @@ public class TelefoneService {
 		return new TelefoneDTO(entity);
 	}
 
+	
+	
 	@Transactional
 	public TelefoneDTO insert(TelefoneDTO dto) {
-
-		// Validação: número de telefone não pode ser nulo ou vazio
-	    if (dto.getNroTelefone() == null || dto.getNroTelefone().trim().isEmpty()) {
-	        throw new IllegalArgumentException("O número do telefone não pode estar vazio.");
-	    }
-
-	    // Validação: DDD não pode ser nulo
-	    if (dto.getDdd() == null || dto.getDdd().getCodigoArea() == null) {
-	        throw new IllegalArgumentException("O código de área (DDD) não pode ser nulo.");
-	    }
-
-	    // Criar a entidade Telefone
+		telefoneValidation.validarTelefoneDTO(dto);
 	    Telefone entity = new Telefone();
-	    copyDtoToEntity(dto, entity); // Método que copia os dados do DTO para a entidade
-
-	    // Salvar a entidade no banco
+	    copyDtoToEntity(dto, entity);
 	    entity = repository.save(entity);
 	    return new TelefoneDTO(entity);
 	
@@ -65,6 +56,7 @@ public class TelefoneService {
 	@Transactional
 	public TelefoneDTO upDate(Long id, TelefoneDTO dto) {
 		try {
+			telefoneValidation.validarTelefoneDTO(dto);
 			Telefone entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
